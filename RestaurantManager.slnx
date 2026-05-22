@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="DataAccess/DataAccess.csproj" />
+  <Project Path="DomainModels/DomainModels.csproj" />
+  <Project Path="DTOs/DTOs.csproj" />
+  <Project Path="Mappers/Mappers.csproj" />
+  <Project Path="RestaurantManager/RestaurantManager.csproj" />
+  <Project Path="Services/Services.csproj" />
+</Solution>
