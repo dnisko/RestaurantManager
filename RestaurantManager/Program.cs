@@ -38,6 +38,7 @@ namespace RestaurantManager
             if (appSettings != null) builder.Services.RegisterDbContext(appSettings.ConnectionString);
 
             var app = builder.Build();
+            app.Services.EnsureSeeded();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
