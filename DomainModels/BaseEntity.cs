@@ -1,6 +1,8 @@
-﻿namespace DomainModels
+﻿using DomainModels.Interfaces;
+
+namespace DomainModels
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : ISoftDeletable
     {
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;

@@ -1,4 +1,8 @@
 
+using Common.Settings;
+using Serilog;
+using Services.Extensions;
+
 namespace RestaurantManager
 {
     public class Program
@@ -8,10 +12,30 @@ namespace RestaurantManager
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            var appConfig = builder.Configuration.GetSection("AppSettings");
+            builder.Services.Configure<AppSettings>(appConfig);
+            var appSettings = appConfig.Get<AppSettings>();
 
             builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            builder.Services.AddHttpClient();
+
+            builder.Host.UseSerilog((context, configuration) =>
+            {
+                configuration
+                    .MinimumLevel.Information()
+                    .WriteTo.Console()
+                    .WriteTo.File(
+                        path: $"Logs/log-.txt",
+                        rollingInterval: RollingInterval.Day,
+                        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+                        retainedFileCountLimit: 7
+                    )
+                    .Enrich.FromLogContext();
+            });
+
+            if (appSettings != null) builder.Services.RegisterDbContext(appSettings.ConnectionString);
 
             var app = builder.Build();
 
