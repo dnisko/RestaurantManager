@@ -1,4 +1,6 @@
-﻿using DomainModels;
+﻿using Common.Responses;
+using DomainModels;
+using DTOs.Pagination;
 using System.Linq.Expressions;
 
 namespace DataAccess.Interfaces
@@ -12,6 +14,6 @@ namespace DataAccess.Interfaces
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);
 
-        //Task<PaginatedResult<T>> GetPagedAsync(BasePaginationParams paginationParams);
+        Task<PaginatedResult<T>> GetPagedAsync(BasePaginationParams paginationParams);
     }
 }

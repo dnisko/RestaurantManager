@@ -1,5 +1,8 @@
-﻿using DataAccess.Interfaces;
+﻿using Common.Responses;
+using Common.Helpers;
+using DataAccess.Interfaces;
 using DomainModels;
+using DTOs.Pagination;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -8,24 +11,13 @@ namespace DataAccess.Implementation
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly RestaurantDbContext _context;
-        private readonly DbSet<T> _table;
+        protected readonly DbSet<T> _table;
 
         public Repository(RestaurantDbContext context)
         {
             _context = context;
             _table = _context.Set<T>();
         }
-        //public async Task<IEnumerable<T>> GetAllAsync()
-        //{
-        //    try
-        //    {
-        //        return await _table.AsNoTracking().ToListAsync();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
         public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null)
         {
             IQueryable<T> query = _table.AsNoTracking();
@@ -57,6 +49,10 @@ namespace DataAccess.Implementation
         {
             _table.Update(entity);
             await _context.SaveChangesAsync();
+        }
+        public async Task<PaginatedResult<T>> GetPagedAsync(BasePaginationParams paginationParams)
+        {
+            return await PaginationHelper.ApplyPaginationAsync(_table.AsQueryable(), paginationParams);
         }
     }
 }

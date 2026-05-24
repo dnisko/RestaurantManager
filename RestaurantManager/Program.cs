@@ -19,6 +19,8 @@ namespace RestaurantManager
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
 
+            builder.Services.RegisterAutoMapper();
+
             builder.Services.AddHttpClient();
 
             builder.Host.UseSerilog((context, configuration) =>
@@ -37,13 +39,33 @@ namespace RestaurantManager
 
             if (appSettings != null) builder.Services.RegisterDbContext(appSettings.ConnectionString);
 
+            builder.Services.RegisterRepositories();
+            builder.Services.RegisterServices();
+
+            var swaggerSettings = builder.Configuration.GetSection("Swagger");
+            var darkMode = swaggerSettings.GetValue<bool>("DarkMode");
+            builder.Services.AddSwagger(builder.Configuration);
+
             var app = builder.Build();
             app.Services.EnsureSeeded();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                //app.MapOpenApi();
+                app.UseStaticFiles();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    var swaggerSettings = builder.Configuration.GetSection("Swagger");
+                    var darkMode = swaggerSettings.GetValue<bool>("DarkMode");
+                    Console.WriteLine($"Dark Mode: {darkMode}");
+                    if (darkMode)
+                    {
+                        c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
+                    }
+                });
             }
 
             app.UseHttpsRedirection();
