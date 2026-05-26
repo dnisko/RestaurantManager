@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DataAccess;
+﻿using DataAccess;
 using DataAccess.Implementation;
 using DataAccess.Interfaces;
 using Mappers;
@@ -7,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi;
 using Services.Implementation;
 using Services.Interfaces;
 
@@ -47,11 +45,13 @@ namespace Services.Extensions
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
             return services;
         }
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ISupplierService, SupplierService>();
 
             return services;
         }
