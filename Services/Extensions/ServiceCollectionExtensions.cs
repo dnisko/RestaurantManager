@@ -46,12 +46,14 @@ namespace Services.Extensions
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
             return services;
         }
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IIngredientService, IngredientService>();
 
             return services;
         }

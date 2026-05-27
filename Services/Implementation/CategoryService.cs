@@ -133,11 +133,15 @@ namespace Services.Implementation
                 if(category == null)
                 {
                     _logger.LogError($"Category with id {id} not found.");
-                    throw new CategoryDataException($"Category with id {id} not found.");
+                    throw new CategoryNotFoundException($"Category with id {id} not found.");
                 }
                 await _categoryRepository.DeleteAsync(category.Id);
                 _logger.LogInformation($"Category with id {id} deleted successfully.");
                 return CustomResponse.Success("Category deleted successfully.");
+            }
+            catch (CategoryNotFoundException)
+            {
+                throw;
             }
             catch (CategoryDataException)
             {
