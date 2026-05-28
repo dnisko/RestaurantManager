@@ -18,6 +18,7 @@ namespace RestaurantManager.Controllers
             _productService = productService;
         }
         [HttpGet("")]
+        //merged with GetById because they are the same.
         public async Task<IActionResult> GetAllProductsAsync([FromQuery] ProductPaginationParams paginationParams)
         {
             try
