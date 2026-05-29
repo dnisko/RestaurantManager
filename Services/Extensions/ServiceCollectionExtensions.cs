@@ -48,6 +48,7 @@ namespace Services.Extensions
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IIngredientPriceRepository, IngredientPriceRepository>();
             return services;
         }
         public static IServiceCollection RegisterServices(this IServiceCollection services)
@@ -56,6 +57,7 @@ namespace Services.Extensions
             services.AddScoped<ISupplierService, SupplierService>();
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IIngredientPriceService, IngredientPriceService>();
             return services;
         }
 

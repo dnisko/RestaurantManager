@@ -22,7 +22,7 @@ namespace DataAccess.Implementation
                     && (ip.ValidTo == null || ip.ValidTo >= today))
                 .ToListAsync();
         }
-        public async Task<IngredientPrice?> GetActivePriceAsync(int ingredientId, DateTime today, IngredientPricePaginationParams paginationParams)
+        public async Task<IngredientPrice?> GetActivePriceAsync(int ingredientId, DateTime today)//, IngredientPricePaginationParams paginationParams)
         {
             var query = await _table.Where(ip => ip.IngredientId == ingredientId
                 && ip.IsPreferred
