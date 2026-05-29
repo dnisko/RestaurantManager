@@ -1,15 +1,11 @@
-﻿namespace DomainModels
+﻿namespace DTOs.IngredientPrice
 {
-    public class IngredientPrice : BaseEntity
+    public class CreateIngredientPriceDto
     {
         public int IngredientId { get; set; }
-        public Ingredient Ingredient { get; set; } = null!;
-
         public int SupplierId { get; set; }
-        public Supplier Supplier { get; set; } = null!;
-
         public decimal Price { get; set; }
-        public DateTime ValidFrom { get; set; }
+        public DateTime ValidFrom { get; set; } = DateTime.UtcNow;
         public DateTime? ValidTo { get; set; }
         public bool IsPreferred { get; set; }
     }

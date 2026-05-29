@@ -6,7 +6,6 @@ namespace Services.Interfaces
 {
     public interface ICategoryService
     {
-
         Task<CustomResponse<PaginatedResult<CategoryDto>>> GetAllAsync(CategoryPaginationParams paginationParams);
         Task<CustomResponse<CategoryDto>> GetByIdAsync(int id);
         Task<CustomResponse<CategoryDto>> CreateCategoryAsync(CreateCategoryDto categoryCreateDto);
