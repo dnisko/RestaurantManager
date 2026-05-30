@@ -44,7 +44,7 @@ namespace RestaurantManager.Controllers
                 var response = await _productService.GetWithRecipeLinesAsync(id);
                 return Response(response);
             }
-            catch (ProductNotFoundDataException ex)
+            catch (ProductNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -84,7 +84,7 @@ namespace RestaurantManager.Controllers
                 var response = await _productService.UpdateProductAsync(updateProductDto);
                 return Response(response);
             }
-            catch (ProductNotFoundDataException ex)
+            catch (ProductNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -106,7 +106,7 @@ namespace RestaurantManager.Controllers
                 var response = await _productService.DeleteProductAsync(id);
                 return Response(response);
             }
-            catch (ProductNotFoundDataException ex)
+            catch (ProductNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }

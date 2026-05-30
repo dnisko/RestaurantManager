@@ -44,6 +44,10 @@ namespace RestaurantManager.Controllers
                 var response = await _categoryService.GetByIdAsync(id);
                 return Response(response);
             }
+            catch (CategoryNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (CategoryDataException ex)
             {
                 return BadRequest(ex.Message);
@@ -97,6 +101,10 @@ namespace RestaurantManager.Controllers
             {
                 var response = await _categoryService.DeleteCategoryAsync(id);
                 return Response(response);
+            }
+            catch (CategoryNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (CategoryDataException ex)
             {

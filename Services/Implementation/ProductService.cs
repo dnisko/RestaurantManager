@@ -59,13 +59,13 @@ namespace Services.Implementation
                 if (product == null)
                 {
                     _logger.LogWarning("Product with id {Id} not found.", id);
-                    throw new ProductNotFoundDataException($"Product with id {id} not found.");
+                    throw new ProductNotFoundException($"Product with id {id} not found.");
                 }
 
                 var mapped = _mapper.Map<ProductDto>(product);
                 return CustomResponse<ProductDto>.Success(mapped);
             }
-            catch (ProductNotFoundDataException)
+            catch (ProductNotFoundException)
             {
                 throw;
             }
@@ -134,7 +134,7 @@ namespace Services.Implementation
                 if (product == null)
                 {
                     _logger.LogWarning("Product with id {Id} not found.", updateProductDto.Id);
-                    throw new ProductNotFoundDataException($"Product with id {updateProductDto.Id} not found.");
+                    throw new ProductNotFoundException($"Product with id {updateProductDto.Id} not found.");
                 }
                 _mapper.Map(updateProductDto, product);
                 await _productRepository.UpdateAsync(product);
@@ -160,12 +160,12 @@ namespace Services.Implementation
                 if (product == null)
                 {
                     _logger.LogWarning("Product with id {Id} not found.", id);
-                    throw new ProductNotFoundDataException($"Product with id {id} not found.");
+                    throw new ProductNotFoundException($"Product with id {id} not found.");
                 }
                 await _productRepository.DeleteAsync(product.Id);
                 return CustomResponse.Success("Product deleted successfully.");
             }
-            catch (ProductNotFoundDataException)
+            catch (ProductNotFoundException)
             {
                 throw;
             }

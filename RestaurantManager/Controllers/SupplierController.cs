@@ -46,6 +46,10 @@ namespace RestaurantManager.Controllers
                 var supplier = await _supplierService.GetByIdAsync(id);
                 return Response(supplier);
             }
+            catch (SupplierNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (SupplierDataException ex)
             {
                 return BadRequest(ex.Message);
@@ -80,6 +84,10 @@ namespace RestaurantManager.Controllers
                 var updatedSupplier = await _supplierService.UpdateSupplierAsync(supplierUpdateDto);
                 return Response(updatedSupplier);
             }
+            catch (SupplierNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (SupplierDataException ex)
             {
                 return BadRequest(ex.Message);
@@ -96,6 +104,10 @@ namespace RestaurantManager.Controllers
             {
                 var deleteResponse = await _supplierService.DeleteSupplierAsync(id);
                 return Response(deleteResponse);
+            }
+            catch (SupplierNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (SupplierDataException ex)
             {

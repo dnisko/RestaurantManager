@@ -44,7 +44,7 @@ namespace RestaurantManager.Controllers
                 var result = await _ingredientPriceService.GetActivePriceAsync(ingredientId);
                 return Response(result);
             }
-            catch (IngredientPriceNotFoundDataException ex)
+            catch (IngredientPriceNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -65,7 +65,7 @@ namespace RestaurantManager.Controllers
                 var result = await _ingredientPriceService.GetPriceHistoryAsync(ingredientId, paginationParams);
                 return Response(result);
             }
-            catch (IngredientPriceNotFoundDataException ex)
+            catch (IngredientPriceNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -120,7 +120,7 @@ namespace RestaurantManager.Controllers
                 var result = await _ingredientPriceService.DeleteIngredientPriceAsync(ingredientId);
                 return Response(result);
             }
-            catch (IngredientPriceNotFoundDataException ex)
+            catch (IngredientPriceNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }

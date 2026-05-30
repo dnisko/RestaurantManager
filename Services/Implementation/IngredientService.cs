@@ -13,11 +13,11 @@ namespace Services.Implementation
     public class IngredientService : IIngredientService
     {
         private readonly IIngredientRepository _ingredientRepository;
-        private readonly ILogger<IngredientService> _logger;
+        private readonly ILogger<IIngredientService> _logger;
         private readonly IMapper _mapper;
         public IngredientService(
             IIngredientRepository ingredientRepository,
-            ILogger<IngredientService> logger,
+            ILogger<IIngredientService> logger,
             IMapper mapper)
         {
             _ingredientRepository = ingredientRepository;

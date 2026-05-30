@@ -58,12 +58,12 @@ namespace Services.Implementation
                 if(ingredientPrice == null)
                 {
                     _logger.LogError($"Ingredient price with id {ingredientId} not found.");
-                    throw new IngredientPriceNotFoundDataException($"Ingredient price with id {ingredientId} not found.");
+                    throw new IngredientPriceNotFoundException($"Ingredient price with id {ingredientId} not found.");
                 }
                 var mapped = _mapper.Map<IngredientPriceDto>(ingredientPrice);
                 return CustomResponse<IngredientPriceDto>.Success(mapped);
             }
-            catch (IngredientPriceNotFoundDataException)
+            catch (IngredientPriceNotFoundException)
             {
                 throw;
             }
@@ -95,7 +95,7 @@ namespace Services.Implementation
                     ingredientPriceCreateDto.PageNumber, ingredientPriceCreateDto.PageSize);
                 return CustomResponse<PaginatedResult<IngredientPriceDto>>.Success(result);
             }
-            catch (IngredientPriceNotFoundDataException)
+            catch (IngredientPriceNotFoundException)
             {
                 throw;
             }
@@ -118,14 +118,14 @@ namespace Services.Implementation
                 if (ingredientPrice == null)
                 {
                     _logger.LogError($"Ingredient price with id {ingredientPriceUpdateDto.Id} not found.");
-                    throw new IngredientPriceNotFoundDataException($"Ingredient price with id: \"{ingredientPriceUpdateDto.Id}\" not found.");
+                    throw new IngredientPriceNotFoundException($"Ingredient price with id: \"{ingredientPriceUpdateDto.Id}\" not found.");
                 }
                 _mapper.Map(ingredientPriceUpdateDto, ingredientPrice);
                 await _ingredientPriceRepository.UpdateAsync(ingredientPrice);
                 var ingredientPriceDto = _mapper.Map<IngredientPriceDto>(ingredientPrice);
                 return CustomResponse<IngredientPriceDto>.Success(ingredientPriceDto, "Ingredient price updated successfully.");
             }
-            catch (IngredientPriceNotFoundDataException)
+            catch (IngredientPriceNotFoundException)
             {
                 throw;
             }
@@ -182,13 +182,13 @@ namespace Services.Implementation
                 if (ingredientPrice == null)
                 {
                     _logger.LogError($"Ingredient price with id {ingredientId} not found.");
-                    throw new IngredientPriceNotFoundDataException($"Ingredient price with id {ingredientId} not found.");
+                    throw new IngredientPriceNotFoundException($"Ingredient price with id {ingredientId} not found.");
                 }
 
                 await _ingredientPriceRepository.DeleteAsync(ingredientPrice.Id);
                 return CustomResponse.Success("Ingredient price deleted successfully.");
             }
-            catch (IngredientPriceNotFoundDataException)
+            catch (IngredientPriceNotFoundException)
             {
                 throw;
             }
