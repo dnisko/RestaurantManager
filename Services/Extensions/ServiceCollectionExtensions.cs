@@ -60,6 +60,7 @@ namespace Services.Extensions
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IIngredientPriceService, IngredientPriceService>();
             services.AddScoped<IRecipeLineService, RecipeLineService>();
+            services.AddScoped<ICogsService, CogsService>();
             return services;
         }
 
