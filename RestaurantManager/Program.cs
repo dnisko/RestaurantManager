@@ -41,10 +41,17 @@ namespace RestaurantManager
 
             builder.Services.RegisterRepositories();
             builder.Services.RegisterServices();
+            builder.WebHost.ConfigureKestrel(opts =>
+            {
+                opts.ListenAnyIP(7175);
+                opts.ListenAnyIP(5015);
+            });
 
             var swaggerSettings = builder.Configuration.GetSection("Swagger");
             var darkMode = swaggerSettings.GetValue<bool>("DarkMode");
             builder.Services.AddSwagger(builder.Configuration);
+
+            builder.Services.RegisterCors();
 
             var app = builder.Build();
             app.Services.EnsureSeeded();
@@ -68,7 +75,9 @@ namespace RestaurantManager
                 });
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
+
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

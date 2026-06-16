@@ -48,6 +48,22 @@ namespace DataAccess
 
                 modelBuilder.Entity(entityType.ClrType).HasQueryFilter(filter);
             }
+
+            modelBuilder.Entity<IngredientPrice>()
+                .Property(ip => ip.Price)
+                .HasPrecision(18, 6);
+
+            modelBuilder.Entity<RecipeLine>()
+                .Property(rl => rl.Quantity)
+                .HasPrecision(18, 4);
+
+            modelBuilder.Entity<Ingredient>()
+                .Property(i => i.QuantityOnHand)
+                .HasPrecision(18, 4);
+
+            modelBuilder.Entity<Ingredient>()
+                .Property(i => i.MinimumQuantity)
+                .HasPrecision(18, 4);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

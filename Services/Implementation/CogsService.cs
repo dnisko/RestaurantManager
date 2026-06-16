@@ -50,14 +50,15 @@ namespace Services.Implementation
                     {
                         throw new IngredientNotFoundException($"No price found for ingredient ID {line.IngredientId}.");
                     }
-                    var lineCost = line.Quantity * ingredientPrice.Price;
+                    var costPerUnit = ingredientPrice.Price / ingredientPrice.PriceQuantity;
+                    var lineCost = line.Quantity * costPerUnit;
                     cogsResult.Lines.Add(new CogsLineDto
                     {
                         IngredientId = line.IngredientId,
                         IngredientName = line.Ingredient?.Name ?? "Unknown",
                         Quantity = line.Quantity,
                         Unit = line.Unit,
-                        CostPerUnit = ingredientPrice.Price,
+                        CostPerUnit = costPerUnit,
                         LineCost = lineCost
                     });
                     cogsResult.TotalIngredientCost += lineCost;
