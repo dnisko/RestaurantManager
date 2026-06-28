@@ -9,5 +9,10 @@
         public decimal MarginPercent { get; set; }
         public decimal SuggestedPrice { get; set; }
         public decimal MarginAmount { get; set; } // SuggestedPrice - TotalIngredientCost
+
+        public decimal TotalFixedCosts { get; set; }
+        public decimal FixedCostPerCup { get; set; }
+        public decimal TrueCostPerCup { get; set; } // ingredient + fixed
+        public int MonthlyVolume { get; set; }
     }
 }

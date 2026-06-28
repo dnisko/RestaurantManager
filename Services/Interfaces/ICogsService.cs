@@ -5,6 +5,6 @@ namespace Services.Interfaces
 {
     public interface ICogsService
     {
-        Task<CustomResponse<CogsResultDto>> CalculateCogsAsync(int productId, decimal marginPercent);
+        Task<CustomResponse<CogsResultDto>> CalculateCogsAsync(int productId, decimal marginPercent, int monthlyVolume);
     }
 }

@@ -8,7 +8,9 @@ namespace Mappers
     {
         public FixedExpenseProfile()
         {
-            CreateMap<FixedExpense, FixedExpenseDto>();
+            CreateMap<FixedExpense, FixedExpenseDto>()
+                .ForMember(dest => dest.Category,
+                opt => opt.MapFrom(src => src.Category.ToString()));
             CreateMap<CreateFixedExpenseDto, FixedExpense>();
             CreateMap<UpdateFixedExpenseDto, FixedExpense>();
         }

@@ -3,7 +3,6 @@ using Common.Exceptions.FixedExpense;
 using Common.Responses;
 using DataAccess.Interfaces;
 using DomainModels;
-using DTOs.Category;
 using DTOs.FixedExpense;
 using DTOs.Pagination;
 using Microsoft.Extensions.Logging;

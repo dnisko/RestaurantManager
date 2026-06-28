@@ -17,11 +17,11 @@ namespace RestaurantManager.Controllers
             _cogsService = cogsService;
         }
         [HttpGet("{productId}")]
-        public async Task<IActionResult> GetCogsAsync(int productId, [FromQuery] decimal marginPercent = 35)
+        public async Task<IActionResult> GetCogsAsync(int productId, [FromQuery] decimal marginPercent = 35, [FromQuery] int monthlyVolume = 1000)
         {
             try
             {
-                var cogsResult = await _cogsService.CalculateCogsAsync(productId, marginPercent);
+                var cogsResult = await _cogsService.CalculateCogsAsync(productId, marginPercent, monthlyVolume);
                 return Response(cogsResult);
             }
             catch (RecipeLineNotFoundException ex)
